@@ -54,7 +54,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.0.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -902043156;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1054886437;
 
 // Section: executor
 
@@ -3357,6 +3357,54 @@ fn wire__crate__api__database__NostrDatabase_wipe_impl(
                     .await,
                 )
             }
+        },
+    )
+}
+fn wire__crate__api__database__events__Events_as_vec_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Events_as_vec",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Events>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::database::events::_Events::as_vec(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -11093,67 +11141,67 @@ fn pde_ffi_dispatcher_primary_impl(
         57 => {
             wire__crate__api__database__NostrDatabase_wipe_impl(port, ptr, rust_vec_len, data_len)
         }
-        81 => wire__crate__api__protocol__event__builder__EventBuilder_gift_wrap_impl(
+        82 => wire__crate__api__protocol__event__builder__EventBuilder_gift_wrap_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        85 => wire__crate__api__protocol__event__builder__EventBuilder_private_msg_impl(
+        86 => wire__crate__api__protocol__event__builder__EventBuilder_private_msg_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        86 => wire__crate__api__protocol__event__builder__EventBuilder_seal_impl(
+        87 => wire__crate__api__protocol__event__builder__EventBuilder_seal_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        87 => wire__crate__api__protocol__event__builder__EventBuilder_sign_impl(
+        88 => wire__crate__api__protocol__event__builder__EventBuilder_sign_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        177 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_from_gift_wrap_impl(
+        178 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_from_gift_wrap_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        181 => wire__crate__api__protocol__signer__NostrSigner_get_public_key_impl(
+        182 => wire__crate__api__protocol__signer__NostrSigner_get_public_key_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        183 => wire__crate__api__protocol__signer__NostrSigner_nip04_decrypt_impl(
+        184 => wire__crate__api__protocol__signer__NostrSigner_nip04_decrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        184 => wire__crate__api__protocol__signer__NostrSigner_nip04_encrypt_impl(
+        185 => wire__crate__api__protocol__signer__NostrSigner_nip04_encrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        185 => wire__crate__api__protocol__signer__NostrSigner_nip44_decrypt_impl(
+        186 => wire__crate__api__protocol__signer__NostrSigner_nip44_decrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        186 => wire__crate__api__protocol__signer__NostrSigner_nip44_encrypt_impl(
+        187 => wire__crate__api__protocol__signer__NostrSigner_nip44_encrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        187 => wire__crate__api__protocol__signer__NostrSigner_sign_event_impl(
+        188 => wire__crate__api__protocol__signer__NostrSigner_sign_event_impl(
             port,
             ptr,
             rust_vec_len,
@@ -11242,401 +11290,402 @@ fn pde_ffi_dispatcher_sync_impl(
             wire__crate__api__client__options__Connection_target_impl(ptr, rust_vec_len, data_len)
         }
         54 => wire__crate__api__database__NostrDatabase_lmdb_impl(ptr, rust_vec_len, data_len),
-        58 => wire__crate__api__database__events__Events_contains_impl(ptr, rust_vec_len, data_len),
-        59 => wire__crate__api__database__events__Events_first_impl(ptr, rust_vec_len, data_len),
-        60 => wire__crate__api__database__events__Events_is_empty_impl(ptr, rust_vec_len, data_len),
-        61 => wire__crate__api__database__events__Events_len_impl(ptr, rust_vec_len, data_len),
-        62 => wire__crate__api__database__events__Events_merge_impl(ptr, rust_vec_len, data_len),
-        63 => wire__crate__api__database__events__Events_to_vec_impl(ptr, rust_vec_len, data_len),
-        64 => wire__crate__api__protocol__event__Event_as_json_impl(ptr, rust_vec_len, data_len),
-        65 => wire__crate__api__protocol__event__Event_as_pretty_json_impl(
+        58 => wire__crate__api__database__events__Events_as_vec_impl(ptr, rust_vec_len, data_len),
+        59 => wire__crate__api__database__events__Events_contains_impl(ptr, rust_vec_len, data_len),
+        60 => wire__crate__api__database__events__Events_first_impl(ptr, rust_vec_len, data_len),
+        61 => wire__crate__api__database__events__Events_is_empty_impl(ptr, rust_vec_len, data_len),
+        62 => wire__crate__api__database__events__Events_len_impl(ptr, rust_vec_len, data_len),
+        63 => wire__crate__api__database__events__Events_merge_impl(ptr, rust_vec_len, data_len),
+        64 => wire__crate__api__database__events__Events_to_vec_impl(ptr, rust_vec_len, data_len),
+        65 => wire__crate__api__protocol__event__Event_as_json_impl(ptr, rust_vec_len, data_len),
+        66 => wire__crate__api__protocol__event__Event_as_pretty_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        66 => wire__crate__api__protocol__event__Event_author_impl(ptr, rust_vec_len, data_len),
-        67 => wire__crate__api__protocol__event__Event_content_impl(ptr, rust_vec_len, data_len),
-        68 => wire__crate__api__protocol__event__Event_created_at_impl(ptr, rust_vec_len, data_len),
-        69 => wire__crate__api__protocol__event__Event_from_json_impl(ptr, rust_vec_len, data_len),
-        70 => wire__crate__api__protocol__event__Event_id_impl(ptr, rust_vec_len, data_len),
-        71 => wire__crate__api__protocol__event__Event_is_expired_impl(ptr, rust_vec_len, data_len),
-        72 => {
+        67 => wire__crate__api__protocol__event__Event_author_impl(ptr, rust_vec_len, data_len),
+        68 => wire__crate__api__protocol__event__Event_content_impl(ptr, rust_vec_len, data_len),
+        69 => wire__crate__api__protocol__event__Event_created_at_impl(ptr, rust_vec_len, data_len),
+        70 => wire__crate__api__protocol__event__Event_from_json_impl(ptr, rust_vec_len, data_len),
+        71 => wire__crate__api__protocol__event__Event_id_impl(ptr, rust_vec_len, data_len),
+        72 => wire__crate__api__protocol__event__Event_is_expired_impl(ptr, rust_vec_len, data_len),
+        73 => {
             wire__crate__api__protocol__event__Event_is_protected_impl(ptr, rust_vec_len, data_len)
         }
-        73 => wire__crate__api__protocol__event__Event_kind_impl(ptr, rust_vec_len, data_len),
-        74 => wire__crate__api__protocol__event__Event_signature_impl(ptr, rust_vec_len, data_len),
-        75 => wire__crate__api__protocol__event__Event_tags_impl(ptr, rust_vec_len, data_len),
-        76 => wire__crate__api__protocol__event__Event_verify_impl(ptr, rust_vec_len, data_len),
-        77 => wire__crate__api__protocol__event__Event_verify_id_impl(ptr, rust_vec_len, data_len),
-        78 => wire__crate__api__protocol__event__Event_verify_signature_impl(
+        74 => wire__crate__api__protocol__event__Event_kind_impl(ptr, rust_vec_len, data_len),
+        75 => wire__crate__api__protocol__event__Event_signature_impl(ptr, rust_vec_len, data_len),
+        76 => wire__crate__api__protocol__event__Event_tags_impl(ptr, rust_vec_len, data_len),
+        77 => wire__crate__api__protocol__event__Event_verify_impl(ptr, rust_vec_len, data_len),
+        78 => wire__crate__api__protocol__event__Event_verify_id_impl(ptr, rust_vec_len, data_len),
+        79 => wire__crate__api__protocol__event__Event_verify_signature_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        79 => wire__crate__api__protocol__event__builder__EventBuilder_build_impl(
+        80 => wire__crate__api__protocol__event__builder__EventBuilder_build_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        80 => wire__crate__api__protocol__event__builder__EventBuilder_custom_created_at_impl(
+        81 => wire__crate__api__protocol__event__builder__EventBuilder_custom_created_at_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        82 => wire__crate__api__protocol__event__builder__EventBuilder_gift_wrap_from_seal_impl(
+        83 => wire__crate__api__protocol__event__builder__EventBuilder_gift_wrap_from_seal_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        83 => wire__crate__api__protocol__event__builder__EventBuilder_new_impl(
+        84 => wire__crate__api__protocol__event__builder__EventBuilder_new_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        84 => wire__crate__api__protocol__event__builder__EventBuilder_pow_impl(
+        85 => wire__crate__api__protocol__event__builder__EventBuilder_pow_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        88 => wire__crate__api__protocol__event__builder__EventBuilder_sign_with_keys_impl(
+        89 => wire__crate__api__protocol__event__builder__EventBuilder_sign_with_keys_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        89 => wire__crate__api__protocol__event__builder__EventBuilder_tag_impl(
+        90 => wire__crate__api__protocol__event__builder__EventBuilder_tag_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        90 => wire__crate__api__protocol__event__builder__EventBuilder_tags_impl(
+        91 => wire__crate__api__protocol__event__builder__EventBuilder_tags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        91 => wire__crate__api__protocol__event__builder__EventBuilder_text_note_impl(
+        92 => wire__crate__api__protocol__event__builder__EventBuilder_text_note_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        92 => wire__crate__api__protocol__event__id__EventId_from_slice_impl(
+        93 => wire__crate__api__protocol__event__id__EventId_from_slice_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        93 => wire__crate__api__protocol__event__id__EventId_new_impl(ptr, rust_vec_len, data_len),
-        94 => {
+        94 => wire__crate__api__protocol__event__id__EventId_new_impl(ptr, rust_vec_len, data_len),
+        95 => {
             wire__crate__api__protocol__event__id__EventId_parse_impl(ptr, rust_vec_len, data_len)
         }
-        95 => wire__crate__api__protocol__event__id__EventId_to_bech32_impl(
+        96 => wire__crate__api__protocol__event__id__EventId_to_bech32_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        96 => wire__crate__api__protocol__event__id__EventId_to_bytes_impl(
+        97 => wire__crate__api__protocol__event__id__EventId_to_bytes_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        97 => {
+        98 => {
             wire__crate__api__protocol__event__id__EventId_to_hex_impl(ptr, rust_vec_len, data_len)
         }
-        98 => wire__crate__api__protocol__event__id__EventId_to_nostr_uri_impl(
+        99 => wire__crate__api__protocol__event__id__EventId_to_nostr_uri_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        99 => wire__crate__api__protocol__event__tag__Tag_as_vec_impl(ptr, rust_vec_len, data_len),
-        100 => {
+        100 => wire__crate__api__protocol__event__tag__Tag_as_vec_impl(ptr, rust_vec_len, data_len),
+        101 => {
             wire__crate__api__protocol__event__tag__Tag_content_impl(ptr, rust_vec_len, data_len)
         }
-        101 => wire__crate__api__protocol__event__tag__Tag_is_protected_impl(
+        102 => wire__crate__api__protocol__event__tag__Tag_is_protected_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        102 => {
+        103 => {
             wire__crate__api__protocol__event__tag__Tag_is_reply_impl(ptr, rust_vec_len, data_len)
         }
-        103 => {
+        104 => {
             wire__crate__api__protocol__event__tag__Tag_is_root_impl(ptr, rust_vec_len, data_len)
         }
-        104 => wire__crate__api__protocol__event__tag__Tag_kind_impl(ptr, rust_vec_len, data_len),
-        105 => wire__crate__api__protocol__event__tag__Tag_parse_impl(ptr, rust_vec_len, data_len),
-        106 => wire__crate__api__protocol__event__tag__Tag_to_vec_impl(ptr, rust_vec_len, data_len),
-        107 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_add_signature_impl(
+        105 => wire__crate__api__protocol__event__tag__Tag_kind_impl(ptr, rust_vec_len, data_len),
+        106 => wire__crate__api__protocol__event__tag__Tag_parse_impl(ptr, rust_vec_len, data_len),
+        107 => wire__crate__api__protocol__event__tag__Tag_to_vec_impl(ptr, rust_vec_len, data_len),
+        108 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_add_signature_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        108 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_as_json_impl(
+        109 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_as_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        109 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_as_pretty_json_impl(
+        110 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_as_pretty_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        110 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_author_impl(
+        111 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_author_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        111 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_content_impl(
+        112 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_content_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        112 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_created_at_impl(
+        113 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_created_at_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        113 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_from_json_impl(
+        114 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_from_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        114 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_id_impl(
+        115 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_id_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        115 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_kind_impl(
+        116 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_kind_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        116 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_tags_impl(
+        117 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_tags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        117 => wire__crate__api__protocol__filter__Filter_as_json_impl(ptr, rust_vec_len, data_len),
-        118 => wire__crate__api__protocol__filter__Filter_author_impl(ptr, rust_vec_len, data_len),
-        119 => wire__crate__api__protocol__filter__Filter_authors_impl(ptr, rust_vec_len, data_len),
-        120 => {
+        118 => wire__crate__api__protocol__filter__Filter_as_json_impl(ptr, rust_vec_len, data_len),
+        119 => wire__crate__api__protocol__filter__Filter_author_impl(ptr, rust_vec_len, data_len),
+        120 => wire__crate__api__protocol__filter__Filter_authors_impl(ptr, rust_vec_len, data_len),
+        121 => {
             wire__crate__api__protocol__filter__Filter_custom_tag_impl(ptr, rust_vec_len, data_len)
         }
-        121 => {
+        122 => {
             wire__crate__api__protocol__filter__Filter_custom_tags_impl(ptr, rust_vec_len, data_len)
         }
-        122 => wire__crate__api__protocol__filter__Filter_event_impl(ptr, rust_vec_len, data_len),
-        123 => wire__crate__api__protocol__filter__Filter_events_impl(ptr, rust_vec_len, data_len),
-        124 => {
+        123 => wire__crate__api__protocol__filter__Filter_event_impl(ptr, rust_vec_len, data_len),
+        124 => wire__crate__api__protocol__filter__Filter_events_impl(ptr, rust_vec_len, data_len),
+        125 => {
             wire__crate__api__protocol__filter__Filter_from_json_impl(ptr, rust_vec_len, data_len)
         }
-        125 => wire__crate__api__protocol__filter__Filter_hashtag_impl(ptr, rust_vec_len, data_len),
-        126 => {
+        126 => wire__crate__api__protocol__filter__Filter_hashtag_impl(ptr, rust_vec_len, data_len),
+        127 => {
             wire__crate__api__protocol__filter__Filter_hashtags_impl(ptr, rust_vec_len, data_len)
         }
-        127 => wire__crate__api__protocol__filter__Filter_id_impl(ptr, rust_vec_len, data_len),
-        128 => {
+        128 => wire__crate__api__protocol__filter__Filter_id_impl(ptr, rust_vec_len, data_len),
+        129 => {
             wire__crate__api__protocol__filter__Filter_identifier_impl(ptr, rust_vec_len, data_len)
         }
-        129 => {
+        130 => {
             wire__crate__api__protocol__filter__Filter_identifiers_impl(ptr, rust_vec_len, data_len)
         }
-        130 => wire__crate__api__protocol__filter__Filter_ids_impl(ptr, rust_vec_len, data_len),
-        131 => {
+        131 => wire__crate__api__protocol__filter__Filter_ids_impl(ptr, rust_vec_len, data_len),
+        132 => {
             wire__crate__api__protocol__filter__Filter_is_empty_impl(ptr, rust_vec_len, data_len)
         }
-        132 => wire__crate__api__protocol__filter__Filter_kind_impl(ptr, rust_vec_len, data_len),
-        133 => wire__crate__api__protocol__filter__Filter_kinds_impl(ptr, rust_vec_len, data_len),
-        134 => wire__crate__api__protocol__filter__Filter_limit_impl(ptr, rust_vec_len, data_len),
-        135 => {
+        133 => wire__crate__api__protocol__filter__Filter_kind_impl(ptr, rust_vec_len, data_len),
+        134 => wire__crate__api__protocol__filter__Filter_kinds_impl(ptr, rust_vec_len, data_len),
+        135 => wire__crate__api__protocol__filter__Filter_limit_impl(ptr, rust_vec_len, data_len),
+        136 => {
             wire__crate__api__protocol__filter__Filter_match_event_impl(ptr, rust_vec_len, data_len)
         }
-        136 => wire__crate__api__protocol__filter__Filter_new_impl(ptr, rust_vec_len, data_len),
-        137 => wire__crate__api__protocol__filter__Filter_pubkey_impl(ptr, rust_vec_len, data_len),
-        138 => wire__crate__api__protocol__filter__Filter_pubkeys_impl(ptr, rust_vec_len, data_len),
-        139 => {
+        137 => wire__crate__api__protocol__filter__Filter_new_impl(ptr, rust_vec_len, data_len),
+        138 => wire__crate__api__protocol__filter__Filter_pubkey_impl(ptr, rust_vec_len, data_len),
+        139 => wire__crate__api__protocol__filter__Filter_pubkeys_impl(ptr, rust_vec_len, data_len),
+        140 => {
             wire__crate__api__protocol__filter__Filter_reference_impl(ptr, rust_vec_len, data_len)
         }
-        140 => {
+        141 => {
             wire__crate__api__protocol__filter__Filter_references_impl(ptr, rust_vec_len, data_len)
         }
-        141 => wire__crate__api__protocol__filter__Filter_remove_authors_impl(
+        142 => wire__crate__api__protocol__filter__Filter_remove_authors_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        142 => wire__crate__api__protocol__filter__Filter_remove_custom_tags_impl(
+        143 => wire__crate__api__protocol__filter__Filter_remove_custom_tags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        143 => wire__crate__api__protocol__filter__Filter_remove_events_impl(
+        144 => wire__crate__api__protocol__filter__Filter_remove_events_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        144 => wire__crate__api__protocol__filter__Filter_remove_hashtags_impl(
+        145 => wire__crate__api__protocol__filter__Filter_remove_hashtags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        145 => wire__crate__api__protocol__filter__Filter_remove_identifiers_impl(
+        146 => wire__crate__api__protocol__filter__Filter_remove_identifiers_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        146 => {
+        147 => {
             wire__crate__api__protocol__filter__Filter_remove_ids_impl(ptr, rust_vec_len, data_len)
         }
-        147 => wire__crate__api__protocol__filter__Filter_remove_kinds_impl(
+        148 => wire__crate__api__protocol__filter__Filter_remove_kinds_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        148 => wire__crate__api__protocol__filter__Filter_remove_limit_impl(
+        149 => wire__crate__api__protocol__filter__Filter_remove_limit_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        149 => wire__crate__api__protocol__filter__Filter_remove_pubkeys_impl(
+        150 => wire__crate__api__protocol__filter__Filter_remove_pubkeys_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        150 => wire__crate__api__protocol__filter__Filter_remove_references_impl(
+        151 => wire__crate__api__protocol__filter__Filter_remove_references_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        151 => wire__crate__api__protocol__filter__Filter_remove_search_impl(
+        152 => wire__crate__api__protocol__filter__Filter_remove_search_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        152 => wire__crate__api__protocol__filter__Filter_remove_since_impl(
+        153 => wire__crate__api__protocol__filter__Filter_remove_since_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        153 => wire__crate__api__protocol__filter__Filter_remove_until_impl(
+        154 => wire__crate__api__protocol__filter__Filter_remove_until_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        154 => wire__crate__api__protocol__filter__Filter_search_impl(ptr, rust_vec_len, data_len),
-        155 => wire__crate__api__protocol__filter__Filter_since_impl(ptr, rust_vec_len, data_len),
-        156 => wire__crate__api__protocol__filter__Filter_until_impl(ptr, rust_vec_len, data_len),
-        157 => wire__crate__api__protocol__filter__SingleLetterTag_is_lowercase_impl(
+        155 => wire__crate__api__protocol__filter__Filter_search_impl(ptr, rust_vec_len, data_len),
+        156 => wire__crate__api__protocol__filter__Filter_since_impl(ptr, rust_vec_len, data_len),
+        157 => wire__crate__api__protocol__filter__Filter_until_impl(ptr, rust_vec_len, data_len),
+        158 => wire__crate__api__protocol__filter__SingleLetterTag_is_lowercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        158 => wire__crate__api__protocol__filter__SingleLetterTag_is_uppercase_impl(
+        159 => wire__crate__api__protocol__filter__SingleLetterTag_is_uppercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        159 => wire__crate__api__protocol__filter__SingleLetterTag_lowercase_impl(
+        160 => wire__crate__api__protocol__filter__SingleLetterTag_lowercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        160 => wire__crate__api__protocol__filter__SingleLetterTag_uppercase_impl(
+        161 => wire__crate__api__protocol__filter__SingleLetterTag_uppercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        161 => wire__crate__api__protocol__key__Keys_generate_impl(ptr, rust_vec_len, data_len),
-        162 => wire__crate__api__protocol__key__Keys_new_impl(ptr, rust_vec_len, data_len),
-        163 => wire__crate__api__protocol__key__Keys_parse_impl(ptr, rust_vec_len, data_len),
-        164 => wire__crate__api__protocol__key__Keys_public_key_impl(ptr, rust_vec_len, data_len),
-        165 => wire__crate__api__protocol__key__Keys_secret_key_impl(ptr, rust_vec_len, data_len),
-        166 => wire__crate__api__protocol__key__public_key__PublicKey_from_slice_impl(
+        162 => wire__crate__api__protocol__key__Keys_generate_impl(ptr, rust_vec_len, data_len),
+        163 => wire__crate__api__protocol__key__Keys_new_impl(ptr, rust_vec_len, data_len),
+        164 => wire__crate__api__protocol__key__Keys_parse_impl(ptr, rust_vec_len, data_len),
+        165 => wire__crate__api__protocol__key__Keys_public_key_impl(ptr, rust_vec_len, data_len),
+        166 => wire__crate__api__protocol__key__Keys_secret_key_impl(ptr, rust_vec_len, data_len),
+        167 => wire__crate__api__protocol__key__public_key__PublicKey_from_slice_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        167 => wire__crate__api__protocol__key__public_key__PublicKey_parse_impl(
+        168 => wire__crate__api__protocol__key__public_key__PublicKey_parse_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        168 => wire__crate__api__protocol__key__public_key__PublicKey_to_bech32_impl(
+        169 => wire__crate__api__protocol__key__public_key__PublicKey_to_bech32_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        169 => wire__crate__api__protocol__key__public_key__PublicKey_to_bytes_impl(
+        170 => wire__crate__api__protocol__key__public_key__PublicKey_to_bytes_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        170 => wire__crate__api__protocol__key__public_key__PublicKey_to_hex_impl(
+        171 => wire__crate__api__protocol__key__public_key__PublicKey_to_hex_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        171 => wire__crate__api__protocol__key__public_key__PublicKey_to_nostr_uri_impl(
+        172 => wire__crate__api__protocol__key__public_key__PublicKey_to_nostr_uri_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        172 => wire__crate__api__protocol__key__secret_key__SecretKey_from_slice_impl(
+        173 => wire__crate__api__protocol__key__secret_key__SecretKey_from_slice_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        173 => wire__crate__api__protocol__key__secret_key__SecretKey_generate_impl(
+        174 => wire__crate__api__protocol__key__secret_key__SecretKey_generate_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        174 => wire__crate__api__protocol__key__secret_key__SecretKey_parse_impl(
+        175 => wire__crate__api__protocol__key__secret_key__SecretKey_parse_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        175 => wire__crate__api__protocol__key__secret_key__SecretKey_to_bech32_impl(
+        176 => wire__crate__api__protocol__key__secret_key__SecretKey_to_bech32_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        176 => wire__crate__api__protocol__key__secret_key__SecretKey_to_secret_hex_impl(
+        177 => wire__crate__api__protocol__key__secret_key__SecretKey_to_secret_hex_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        178 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_rumor_impl(
+        179 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_rumor_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        179 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_sender_impl(
+        180 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_sender_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        180 => wire__crate__api__protocol__signer__NostrSigner_backend_impl(
+        181 => wire__crate__api__protocol__signer__NostrSigner_backend_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        182 => {
+        183 => {
             wire__crate__api__protocol__signer__NostrSigner_keys_impl(ptr, rust_vec_len, data_len)
         }
-        188 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_exit_policy_impl(
+        189 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_exit_policy_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        189 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_idle_timeout_impl(
+        190 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_idle_timeout_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        190 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_new_impl(
+        191 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_new_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        191 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_timeout_impl(
+        192 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_timeout_impl(
             ptr,
             rust_vec_len,
             data_len,

@@ -23,6 +23,22 @@
 
 -->
 
+## [Unreleased]
+
+### Breaking changes
+
+### Changed
+
+### Added
+
+* Add `Events::as_vec` ([Yuki Kishimoto])
+
+### Fixed
+
+### Removed
+
+### Deprecated
+
 ## [v0.39.0]
 
 ### Changed

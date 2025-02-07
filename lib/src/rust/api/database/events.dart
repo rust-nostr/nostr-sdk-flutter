@@ -11,6 +11,11 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Events>>
 abstract class Events implements RustOpaqueInterface {
+  /// Clone and convert the collection to a vector of events.
+  ///
+  /// Use `toVec` method if you want to avoid the clone and consume the `Events` object.
+  List<Event> asVec();
+
   /// Check if contains `Event`
   bool contains({required Event event});
 
@@ -29,11 +34,11 @@ abstract class Events implements RustOpaqueInterface {
   /// In other words, the filter limit is respected only if the `Events` are related to the same
   /// list of filters.
   ///
-  /// This method consumes the old `Events` collection and returns a new one!
+  /// **This method consumes the old `Events` collection and returns a new one!**
   Events merge({required Events other});
 
-  /// Convert the collection to vector of events.
+  /// Convert the collection to a vector of events.
   ///
-  /// This method consumes the `Events` collection!
+  /// **This method consumes the `Events` collection!**
   List<Event> toVec();
 }

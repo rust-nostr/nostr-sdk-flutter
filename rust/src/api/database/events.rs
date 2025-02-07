@@ -51,7 +51,7 @@ impl _Events {
     /// In other words, the filter limit is respected only if the `Events` are related to the same
     /// list of filters.
     ///
-    /// This method consumes the old `Events` collection and returns a new one!
+    /// **This method consumes the old `Events` collection and returns a new one!**
     pub fn merge(self, other: Self) -> Self {
         self.inner.merge(other.inner).into()
     }
@@ -61,9 +61,16 @@ impl _Events {
         self.inner.first().cloned().map(|e| e.into())
     }
 
-    /// Convert the collection to vector of events.
+    /// Clone and convert the collection to a vector of events.
     ///
-    /// This method consumes the `Events` collection!
+    /// Use `toVec` method if you want to avoid the clone and consume the `Events` object.
+    pub fn as_vec(&self) -> Vec<_Event> {
+        self.inner.iter().cloned().map(|e| e.into()).collect()
+    }
+
+    /// Convert the collection to a vector of events.
+    ///
+    /// **This method consumes the `Events` collection!**
     pub fn to_vec(self) -> Vec<_Event> {
         self.inner.into_iter().map(|e| e.into()).collect()
     }
