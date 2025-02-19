@@ -21,8 +21,8 @@ anyhow = "1.0"
 chrono = "0.4"
 flutter_rust_bridge = { version = "=2.0.0", features = ["anyhow", "chrono"] }
 flutter_rust_bridge_codegen = { version = "=2.0.0", optional = true }
-nostr-sdk  = { version = "0.39", default-features = false, features = ["all-nips", "lmdb", "tor"] }
-#nostr-sdk  = { git = "https://github.com/rust-nostr/nostr", rev = "265011f7766fa104bfc9da63be83d54bad543c5b", default-features = false, features = ["all-nips", "tor"] }
+#nostr-sdk  = { version = "0.39", default-features = false, features = ["all-nips", "lmdb", "tor"] }
+nostr-sdk  = { git = "https://github.com/rust-nostr/nostr", rev = "a620e3fef5aaef343f5edf58bd682cea5744d488", default-features = false, features = ["all-nips", "lmdb", "tor"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

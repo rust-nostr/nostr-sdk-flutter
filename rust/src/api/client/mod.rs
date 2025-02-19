@@ -319,7 +319,7 @@ impl _Client {
     /// Send `Event` to all relays with `WRITE` flag.
     /// If `gossip` option is enabled, the event will be sent also to NIP65 relays (automatically discovered).
     pub async fn send_event(&self, event: &_Event) -> Result<SendEventOutput> {
-        let output = self.inner.send_event(event.inner.clone()).await?;
+        let output = self.inner.send_event(&event.inner).await?;
         Ok(output.into())
     }
 
@@ -329,7 +329,7 @@ impl _Client {
         urls: Vec<String>,
         event: &_Event,
     ) -> Result<SendEventOutput> {
-        let output = self.inner.send_event_to(urls, event.inner.clone()).await?;
+        let output = self.inner.send_event_to(urls, &event.inner).await?;
         Ok(output.into())
     }
 

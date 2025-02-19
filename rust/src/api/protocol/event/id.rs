@@ -41,7 +41,7 @@ impl _EventId {
     ) -> Result<Self> {
         let created_at = Timestamp::from_secs(created_at);
         let kind = Kind::from_u16(kind);
-        let tags: Vec<Tag> = tags.iter().map(|t| t.inner.clone()).collect();
+        let tags: Tags = tags.iter().map(|t| t.inner.clone()).collect();
         Ok(Self {
             inner: EventId::new(public_key.deref(), &created_at, &kind, &tags, content),
         })
