@@ -2,14 +2,26 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
+use std::ops::Deref;
+
 use anyhow::Result;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
+
+use crate::api::protocol::nips::nip49::_EncryptedSecretKey;
 
 /// Secret key
 #[frb(name = "SecretKey")]
 pub struct _SecretKey {
     pub(crate) inner: SecretKey,
+}
+
+impl Deref for _SecretKey {
+    type Target = SecretKey;
+
+    fn deref(&self) -> &Self::Target {
+        &self.inner
+    }
 }
 
 impl From<SecretKey> for _SecretKey {
@@ -58,5 +70,11 @@ impl _SecretKey {
         self.inner.to_secret_bytes()
     }
 
-    // TODO: add encrypt method
+    /// Encrypt secret key
+    ///
+    /// By default, `LOG_N` is set to `16` and `EncryptedSecretKeySecurity` to `Unknown`.
+    /// To use custom values, check `EncryptedSecretKey`.
+    pub fn encrypt(&self, password: &str) -> Result<_EncryptedSecretKey> {
+        Ok(self.inner.encrypt(password)?.into())
+    }
 }

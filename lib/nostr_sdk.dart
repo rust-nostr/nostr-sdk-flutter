@@ -10,6 +10,7 @@ export 'src/rust/api/protocol/event/unsigned.dart';
 export 'src/rust/api/protocol/key.dart';
 export 'src/rust/api/protocol/key/public_key.dart';
 export 'src/rust/api/protocol/key/secret_key.dart';
+export 'src/rust/api/protocol/nips/nip49.dart';
 export 'src/rust/api/protocol/nips/nip59.dart';
 export 'src/rust/api/protocol/filter.dart';
 export 'src/rust/api/protocol/signer.dart';

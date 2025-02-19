@@ -19,6 +19,7 @@ import 'api/protocol/filter.dart';
 import 'api/protocol/key.dart';
 import 'api/protocol/key/public_key.dart';
 import 'api/protocol/key/secret_key.dart';
+import 'api/protocol/nips/nip49.dart';
 import 'api/protocol/nips/nip59.dart';
 import 'api/protocol/signer.dart';
 import 'api/relay/options.dart';
@@ -77,7 +78,7 @@ class NostrSdk
   String get codegenVersion => '2.0.0';
 
   @override
-  int get rustContentHash => 1054886437;
+  int get rustContentHash => -1441885676;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -574,6 +575,9 @@ abstract class NostrSdkApi extends BaseApi {
   String crateApiProtocolKeyPublicKeyPublicKeyToNostrUri(
       {required PublicKey that});
 
+  EncryptedSecretKey crateApiProtocolKeySecretKeySecretKeyEncrypt(
+      {required SecretKey that, required String password});
+
   SecretKey crateApiProtocolKeySecretKeySecretKeyFromSlice(
       {required List<int> secretKey});
 
@@ -587,6 +591,28 @@ abstract class NostrSdkApi extends BaseApi {
 
   String crateApiProtocolKeySecretKeySecretKeyToSecretHex(
       {required SecretKey that});
+
+  SecretKey crateApiProtocolNipsNip49EncryptedSecretKeyDecrypt(
+      {required EncryptedSecretKey that, required String password});
+
+  EncryptedSecretKey crateApiProtocolNipsNip49EncryptedSecretKeyFromBech32(
+      {required String bech32});
+
+  EncryptedSecretKeySecurity
+      crateApiProtocolNipsNip49EncryptedSecretKeyKeySecurity(
+          {required EncryptedSecretKey that});
+
+  EncryptedSecretKey crateApiProtocolNipsNip49EncryptedSecretKeyNew(
+      {required SecretKey secretKey,
+      required String password,
+      required int logN,
+      required EncryptedSecretKeySecurity keySecurity});
+
+  String crateApiProtocolNipsNip49EncryptedSecretKeyToBech32(
+      {required EncryptedSecretKey that});
+
+  EncryptedSecretKeyVersion crateApiProtocolNipsNip49EncryptedSecretKeyVersion(
+      {required EncryptedSecretKey that});
 
   Future<UnwrappedGift> crateApiProtocolNipsNip59UnwrappedGiftFromGiftWrap(
       {required NostrSigner signer, required Event giftWrap});
@@ -674,6 +700,15 @@ abstract class NostrSdkApi extends BaseApi {
       get rust_arc_decrement_strong_count_Connection;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ConnectionPtr;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_EncryptedSecretKey;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_EncryptedSecretKey;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_EncryptedSecretKeyPtr;
 
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Event;
 
@@ -5541,13 +5576,41 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
+  EncryptedSecretKey crateApiProtocolKeySecretKeySecretKeyEncrypt(
+      {required SecretKey that, required String password}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
+            that, serializer);
+        sse_encode_String(password, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 173)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiProtocolKeySecretKeySecretKeyEncryptConstMeta,
+      argValues: [that, password],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolKeySecretKeySecretKeyEncryptConstMeta =>
+      const TaskConstMeta(
+        debugName: "SecretKey_encrypt",
+        argNames: ["that", "password"],
+      );
+
+  @override
   SecretKey crateApiProtocolKeySecretKeySecretKeyFromSlice(
       {required List<int> secretKey}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_list_prim_u_8_loose(secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 173)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 174)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5571,7 +5634,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 174)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 175)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5597,7 +5660,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 175)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 176)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5624,7 +5687,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 176)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 177)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -5650,7 +5713,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 177)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 178)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -5670,6 +5733,179 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
           );
 
   @override
+  SecretKey crateApiProtocolNipsNip49EncryptedSecretKeyDecrypt(
+      {required EncryptedSecretKey that, required String password}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+            that, serializer);
+        sse_encode_String(password, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 179)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiProtocolNipsNip49EncryptedSecretKeyDecryptConstMeta,
+      argValues: [that, password],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiProtocolNipsNip49EncryptedSecretKeyDecryptConstMeta =>
+          const TaskConstMeta(
+            debugName: "EncryptedSecretKey_decrypt",
+            argNames: ["that", "password"],
+          );
+
+  @override
+  EncryptedSecretKey crateApiProtocolNipsNip49EncryptedSecretKeyFromBech32(
+      {required String bech32}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_String(bech32, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 180)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta:
+          kCrateApiProtocolNipsNip49EncryptedSecretKeyFromBech32ConstMeta,
+      argValues: [bech32],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiProtocolNipsNip49EncryptedSecretKeyFromBech32ConstMeta =>
+          const TaskConstMeta(
+            debugName: "EncryptedSecretKey_from_bech32",
+            argNames: ["bech32"],
+          );
+
+  @override
+  EncryptedSecretKeySecurity
+      crateApiProtocolNipsNip49EncryptedSecretKeyKeySecurity(
+          {required EncryptedSecretKey that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 181)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_encrypted_secret_key_security,
+        decodeErrorData: null,
+      ),
+      constMeta:
+          kCrateApiProtocolNipsNip49EncryptedSecretKeyKeySecurityConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiProtocolNipsNip49EncryptedSecretKeyKeySecurityConstMeta =>
+          const TaskConstMeta(
+            debugName: "EncryptedSecretKey_key_security",
+            argNames: ["that"],
+          );
+
+  @override
+  EncryptedSecretKey crateApiProtocolNipsNip49EncryptedSecretKeyNew(
+      {required SecretKey secretKey,
+      required String password,
+      required int logN,
+      required EncryptedSecretKeySecurity keySecurity}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
+            secretKey, serializer);
+        sse_encode_String(password, serializer);
+        sse_encode_u_8(logN, serializer);
+        sse_encode_encrypted_secret_key_security(keySecurity, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 182)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiProtocolNipsNip49EncryptedSecretKeyNewConstMeta,
+      argValues: [secretKey, password, logN, keySecurity],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolNipsNip49EncryptedSecretKeyNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "EncryptedSecretKey_new",
+        argNames: ["secretKey", "password", "logN", "keySecurity"],
+      );
+
+  @override
+  String crateApiProtocolNipsNip49EncryptedSecretKeyToBech32(
+      {required EncryptedSecretKey that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 183)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_String,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiProtocolNipsNip49EncryptedSecretKeyToBech32ConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiProtocolNipsNip49EncryptedSecretKeyToBech32ConstMeta =>
+          const TaskConstMeta(
+            debugName: "EncryptedSecretKey_to_bech32",
+            argNames: ["that"],
+          );
+
+  @override
+  EncryptedSecretKeyVersion crateApiProtocolNipsNip49EncryptedSecretKeyVersion(
+      {required EncryptedSecretKey that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 184)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_encrypted_secret_key_version,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolNipsNip49EncryptedSecretKeyVersionConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiProtocolNipsNip49EncryptedSecretKeyVersionConstMeta =>
+          const TaskConstMeta(
+            debugName: "EncryptedSecretKey_version",
+            argNames: ["that"],
+          );
+
+  @override
   Future<UnwrappedGift> crateApiProtocolNipsNip59UnwrappedGiftFromGiftWrap(
       {required NostrSigner signer, required Event giftWrap}) {
     return handler.executeNormal(NormalTask(
@@ -5680,7 +5916,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             giftWrap, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 178, port: port_);
+            funcId: 185, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5708,7 +5944,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnwrappedGift(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 179)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 186)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5735,7 +5971,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnwrappedGift(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 180)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 187)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5762,7 +5998,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 181)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 188)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_signer_backend,
@@ -5789,7 +6025,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
             that, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 182, port: port_);
+            funcId: 189, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5815,7 +6051,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
             keys, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 183)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 190)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5848,7 +6084,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             publicKey, serializer);
         sse_encode_String(encryptedContent, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 184, port: port_);
+            funcId: 191, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -5880,7 +6116,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             publicKey, serializer);
         sse_encode_String(content, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 185, port: port_);
+            funcId: 192, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -5912,7 +6148,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             publicKey, serializer);
         sse_encode_String(content, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 186, port: port_);
+            funcId: 193, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -5944,7 +6180,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             publicKey, serializer);
         sse_encode_String(content, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 187, port: port_);
+            funcId: 194, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -5973,7 +6209,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
             unsignedEvent, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 188, port: port_);
+            funcId: 195, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -6003,7 +6239,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
             that, serializer);
         sse_encode_box_autoadd_req_exit_policy(policy, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 189)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 196)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -6034,7 +6270,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
             that, serializer);
         sse_encode_opt_box_autoadd_Chrono_Duration(timeout, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 190)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 197)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -6060,7 +6296,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 191)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 198)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -6090,7 +6326,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
             that, serializer);
         sse_encode_opt_box_autoadd_Chrono_Duration(timeout, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 192)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 199)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -6141,6 +6377,14 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   RustArcDecrementStrongCountFnType
       get rust_arc_decrement_strong_count_Connection => wire
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection;
+
+  RustArcIncrementStrongCountFnType
+      get rust_arc_increment_strong_count_EncryptedSecretKey => wire
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey;
+
+  RustArcDecrementStrongCountFnType
+      get rust_arc_decrement_strong_count_EncryptedSecretKey => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey;
 
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Event =>
       wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event;
@@ -6304,6 +6548,14 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  EncryptedSecretKey
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return EncryptedSecretKeyImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
   Event
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           dynamic raw) {
@@ -6453,6 +6705,14 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ConnectionImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  EncryptedSecretKey
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return EncryptedSecretKeyImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -6618,6 +6878,14 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
           dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ConnectionImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  EncryptedSecretKey
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return EncryptedSecretKeyImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -6839,6 +7107,20 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   ConnectionTarget dco_decode_connection_target(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ConnectionTarget.values[raw as int];
+  }
+
+  @protected
+  EncryptedSecretKeySecurity dco_decode_encrypted_secret_key_security(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return EncryptedSecretKeySecurity.values[raw as int];
+  }
+
+  @protected
+  EncryptedSecretKeyVersion dco_decode_encrypted_secret_key_version(
+      dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return EncryptedSecretKeyVersion.values[raw as int];
   }
 
   @protected
@@ -7172,6 +7454,15 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  EncryptedSecretKey
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return EncryptedSecretKeyImpl.frbInternalSseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
   Event
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           SseDeserializer deserializer) {
@@ -7338,6 +7629,15 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
           SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return ConnectionImpl.frbInternalSseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  EncryptedSecretKey
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return EncryptedSecretKeyImpl.frbInternalSseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
@@ -7523,6 +7823,15 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
           SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return ConnectionImpl.frbInternalSseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  EncryptedSecretKey
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return EncryptedSecretKeyImpl.frbInternalSseDecode(
         sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
@@ -7767,6 +8076,22 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return ConnectionTarget.values[inner];
+  }
+
+  @protected
+  EncryptedSecretKeySecurity sse_decode_encrypted_secret_key_security(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return EncryptedSecretKeySecurity.values[inner];
+  }
+
+  @protected
+  EncryptedSecretKeyVersion sse_decode_encrypted_secret_key_version(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return EncryptedSecretKeyVersion.values[inner];
   }
 
   @protected
@@ -8158,6 +8483,16 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
 
   @protected
   void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          EncryptedSecretKey self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+        (self as EncryptedSecretKeyImpl).frbInternalSseEncode(move: true),
+        serializer);
+  }
+
+  @protected
+  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           Event self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -8334,6 +8669,16 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
         (self as ConnectionImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          EncryptedSecretKey self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+        (self as EncryptedSecretKeyImpl).frbInternalSseEncode(move: false),
+        serializer);
   }
 
   @protected
@@ -8529,6 +8874,16 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
         (self as ConnectionImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          EncryptedSecretKey self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+        (self as EncryptedSecretKeyImpl).frbInternalSseEncode(move: null),
+        serializer);
   }
 
   @protected
@@ -8779,6 +9134,20 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   @protected
   void sse_encode_connection_target(
       ConnectionTarget self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_encrypted_secret_key_security(
+      EncryptedSecretKeySecurity self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_encrypted_secret_key_version(
+      EncryptedSecretKeyVersion self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
   }
@@ -9488,6 +9857,50 @@ class ConnectionImpl extends RustOpaque implements Connection {
 }
 
 @sealed
+class EncryptedSecretKeyImpl extends RustOpaque implements EncryptedSecretKey {
+  // Not to be used by end users
+  EncryptedSecretKeyImpl.frbInternalDcoDecode(List<dynamic> wire)
+      : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  EncryptedSecretKeyImpl.frbInternalSseDecode(
+      BigInt ptr, int externalSizeOnNative)
+      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: NostrSdk
+        .instance.api.rust_arc_increment_strong_count_EncryptedSecretKey,
+    rustArcDecrementStrongCount: NostrSdk
+        .instance.api.rust_arc_decrement_strong_count_EncryptedSecretKey,
+    rustArcDecrementStrongCountPtr: NostrSdk
+        .instance.api.rust_arc_decrement_strong_count_EncryptedSecretKeyPtr,
+  );
+
+  /// Decrypt secret key
+  SecretKey decrypt({required String password}) =>
+      NostrSdk.instance.api.crateApiProtocolNipsNip49EncryptedSecretKeyDecrypt(
+          that: this, password: password);
+
+  /// Get encrypted secret key security
+  EncryptedSecretKeySecurity keySecurity() => NostrSdk.instance.api
+          .crateApiProtocolNipsNip49EncryptedSecretKeyKeySecurity(
+        that: this,
+      );
+
+  /// Serialize to bech32
+  String toBech32() =>
+      NostrSdk.instance.api.crateApiProtocolNipsNip49EncryptedSecretKeyToBech32(
+        that: this,
+      );
+
+  /// Get encrypted secret key version
+  EncryptedSecretKeyVersion version() =>
+      NostrSdk.instance.api.crateApiProtocolNipsNip49EncryptedSecretKeyVersion(
+        that: this,
+      );
+}
+
+@sealed
 class EventBuilderImpl extends RustOpaque implements EventBuilder {
   // Not to be used by end users
   EventBuilderImpl.frbInternalDcoDecode(List<dynamic> wire)
@@ -10115,6 +10528,14 @@ class SecretKeyImpl extends RustOpaque implements SecretKey {
     rustArcDecrementStrongCountPtr:
         NostrSdk.instance.api.rust_arc_decrement_strong_count_SecretKeyPtr,
   );
+
+  /// Encrypt secret key
+  ///
+  /// By default, `LOG_N` is set to `16` and `EncryptedSecretKeySecurity` to `Unknown`.
+  /// To use custom values, check `EncryptedSecretKey`.
+  EncryptedSecretKey encrypt({required String password}) =>
+      NostrSdk.instance.api.crateApiProtocolKeySecretKeySecretKeyEncrypt(
+          that: this, password: password);
 
   /// Serialize to bech32
   String toBech32() =>

@@ -39,6 +39,7 @@ use crate::api::protocol::filter::*;
 use crate::api::protocol::key::public_key::*;
 use crate::api::protocol::key::secret_key::*;
 use crate::api::protocol::key::*;
+use crate::api::protocol::nips::nip49::*;
 use crate::api::protocol::nips::nip59::*;
 use crate::api::protocol::signer::*;
 use crate::api::relay::options::*;
@@ -54,7 +55,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.0.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1054886437;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1441885676;
 
 // Section: executor
 
@@ -9003,6 +9004,58 @@ fn wire__crate__api__protocol__key__public_key__PublicKey_to_nostr_uri_impl(
         },
     )
 }
+fn wire__crate__api__protocol__key__secret_key__SecretKey_encrypt_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SecretKey_encrypt",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SecretKey>,
+            >>::sse_decode(&mut deserializer);
+            let api_password = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::protocol::key::secret_key::_SecretKey::encrypt(
+                        &*api_that_guard,
+                        &api_password,
+                    )?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
 fn wire__crate__api__protocol__key__secret_key__SecretKey_from_slice_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -9193,6 +9246,309 @@ fn wire__crate__api__protocol__key__secret_key__SecretKey_to_secret_hex_impl(
                 let api_that_guard = api_that_guard.unwrap();
                 let output_ok = Result::<_, ()>::Ok(
                     crate::api::protocol::key::secret_key::_SecretKey::to_secret_hex(
+                        &*api_that_guard,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_decrypt_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "EncryptedSecretKey_decrypt",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>,
+            >>::sse_decode(&mut deserializer);
+            let api_password = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        crate::api::protocol::nips::nip49::_EncryptedSecretKey::decrypt(
+                            &*api_that_guard,
+                            &api_password,
+                        )?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_from_bech32_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "EncryptedSecretKey_from_bech32",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_bech32 = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let output_ok =
+                        crate::api::protocol::nips::nip49::_EncryptedSecretKey::from_bech32(
+                            &api_bech32,
+                        )?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_key_security_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "EncryptedSecretKey_key_security",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::protocol::nips::nip49::_EncryptedSecretKey::key_security(
+                        &*api_that_guard,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_new_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "EncryptedSecretKey_new",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_secret_key = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SecretKey>,
+            >>::sse_decode(&mut deserializer);
+            let api_password = <String>::sse_decode(&mut deserializer);
+            let api_log_n = <u8>::sse_decode(&mut deserializer);
+            let api_key_security =
+                <crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity>::sse_decode(
+                    &mut deserializer,
+                );
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_secret_key_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_secret_key,
+                                0,
+                                false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => {
+                                api_secret_key_guard =
+                                    Some(api_secret_key.lockable_decode_sync_ref())
+                            }
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_secret_key_guard = api_secret_key_guard.unwrap();
+                    let output_ok = crate::api::protocol::nips::nip49::_EncryptedSecretKey::new(
+                        &*api_secret_key_guard,
+                        &api_password,
+                        api_log_n,
+                        api_key_security,
+                    )?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_to_bech32_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "EncryptedSecretKey_to_bech32",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        crate::api::protocol::nips::nip49::_EncryptedSecretKey::to_bech32(
+                            &*api_that_guard,
+                        )?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_version_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "EncryptedSecretKey_version",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::protocol::nips::nip49::_EncryptedSecretKey::version(
                         &*api_that_guard,
                     ),
                 )?;
@@ -10119,6 +10475,9 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Connection>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Event>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
@@ -10219,6 +10578,16 @@ impl SseDecode for _Connection {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <RustOpaqueMoi<
             flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Connection>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for _EncryptedSecretKey {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>,
         >>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
@@ -10420,6 +10789,16 @@ impl SseDecode
 
 impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Connection>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -10675,6 +11054,30 @@ impl SseDecode for crate::api::client::options::ConnectionTarget {
             0 => crate::api::client::options::ConnectionTarget::All,
             1 => crate::api::client::options::ConnectionTarget::Onion,
             _ => unreachable!("Invalid variant for ConnectionTarget: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity::Weak,
+            1 => crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity::Medium,
+            2 => crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity::Unknown,
+            _ => unreachable!("Invalid variant for EncryptedSecretKeySecurity: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion::V2,
+            _ => unreachable!("Invalid variant for EncryptedSecretKeyVersion: {}", inner),
         };
     }
 }
@@ -11165,43 +11568,43 @@ fn pde_ffi_dispatcher_primary_impl(
             rust_vec_len,
             data_len,
         ),
-        178 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_from_gift_wrap_impl(
+        185 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_from_gift_wrap_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        182 => wire__crate__api__protocol__signer__NostrSigner_get_public_key_impl(
+        189 => wire__crate__api__protocol__signer__NostrSigner_get_public_key_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        184 => wire__crate__api__protocol__signer__NostrSigner_nip04_decrypt_impl(
+        191 => wire__crate__api__protocol__signer__NostrSigner_nip04_decrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        185 => wire__crate__api__protocol__signer__NostrSigner_nip04_encrypt_impl(
+        192 => wire__crate__api__protocol__signer__NostrSigner_nip04_encrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        186 => wire__crate__api__protocol__signer__NostrSigner_nip44_decrypt_impl(
+        193 => wire__crate__api__protocol__signer__NostrSigner_nip44_decrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        187 => wire__crate__api__protocol__signer__NostrSigner_nip44_encrypt_impl(
+        194 => wire__crate__api__protocol__signer__NostrSigner_nip44_encrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        188 => wire__crate__api__protocol__signer__NostrSigner_sign_event_impl(
+        195 => wire__crate__api__protocol__signer__NostrSigner_sign_event_impl(
             port,
             ptr,
             rust_vec_len,
@@ -11627,65 +12030,100 @@ fn pde_ffi_dispatcher_sync_impl(
             rust_vec_len,
             data_len,
         ),
-        173 => wire__crate__api__protocol__key__secret_key__SecretKey_from_slice_impl(
+        173 => wire__crate__api__protocol__key__secret_key__SecretKey_encrypt_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        174 => wire__crate__api__protocol__key__secret_key__SecretKey_generate_impl(
+        174 => wire__crate__api__protocol__key__secret_key__SecretKey_from_slice_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        175 => wire__crate__api__protocol__key__secret_key__SecretKey_parse_impl(
+        175 => wire__crate__api__protocol__key__secret_key__SecretKey_generate_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        176 => wire__crate__api__protocol__key__secret_key__SecretKey_to_bech32_impl(
+        176 => wire__crate__api__protocol__key__secret_key__SecretKey_parse_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        177 => wire__crate__api__protocol__key__secret_key__SecretKey_to_secret_hex_impl(
+        177 => wire__crate__api__protocol__key__secret_key__SecretKey_to_bech32_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        179 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_rumor_impl(
+        178 => wire__crate__api__protocol__key__secret_key__SecretKey_to_secret_hex_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        180 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_sender_impl(
+        179 => wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_decrypt_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        181 => wire__crate__api__protocol__signer__NostrSigner_backend_impl(
+        180 => wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_from_bech32_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        183 => {
+        181 => wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_key_security_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        182 => wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_new_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        183 => wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_to_bech32_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        184 => wire__crate__api__protocol__nips__nip49__EncryptedSecretKey_version_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        186 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_rumor_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        187 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_sender_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        188 => wire__crate__api__protocol__signer__NostrSigner_backend_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        190 => {
             wire__crate__api__protocol__signer__NostrSigner_keys_impl(ptr, rust_vec_len, data_len)
         }
-        189 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_exit_policy_impl(
+        196 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_exit_policy_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        190 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_idle_timeout_impl(
+        197 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_idle_timeout_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        191 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_new_impl(
+        198 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_new_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        192 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_timeout_impl(
+        199 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_timeout_impl(
             ptr,
             rust_vec_len,
             data_len,
@@ -11752,6 +12190,24 @@ impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<
 
 impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<_Connection>> for _Connection {
     fn into_into_dart(self) -> FrbWrapper<_Connection> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<_EncryptedSecretKey> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<_EncryptedSecretKey>
+{
+}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<_EncryptedSecretKey>> for _EncryptedSecretKey {
+    fn into_into_dart(self) -> FrbWrapper<_EncryptedSecretKey> {
         self.into()
     }
 }
@@ -12081,6 +12537,53 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::client::options::ConnectionTa
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart
+    for crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity
+{
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            Self::Weak => 0.into_dart(),
+            Self::Medium => 1.into_dart(),
+            Self::Unknown => 2.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity
+{
+}
+impl
+    flutter_rust_bridge::IntoIntoDart<crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity>
+    for crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity
+{
+    fn into_into_dart(self) -> crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart
+    for crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion
+{
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            Self::V2 => 0.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion>
+    for crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion
+{
+    fn into_into_dart(self) -> crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::database::RejectedReason {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
@@ -12299,6 +12802,13 @@ impl SseEncode for _Connection {
     }
 }
 
+impl SseEncode for _EncryptedSecretKey {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
 impl SseEncode for _Event {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -12466,6 +12976,17 @@ impl SseEncode
 
 impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Connection>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -12734,6 +13255,38 @@ impl SseEncode for crate::api::client::options::ConnectionTarget {
             match self {
                 crate::api::client::options::ConnectionTarget::All => 0,
                 crate::api::client::options::ConnectionTarget::Onion => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity::Weak => 0,
+                crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity::Medium => 1,
+                crate::api::protocol::nips::nip49::EncryptedSecretKeySecurity::Unknown => 2,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                crate::api::protocol::nips::nip49::EncryptedSecretKeyVersion::V2 => 0,
                 _ => {
                     unimplemented!("");
                 }

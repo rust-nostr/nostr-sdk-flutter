@@ -32,6 +32,7 @@
 ### Added
 
 * Add `Events::as_vec` ([Yuki Kishimoto])
+* Expose `EncryptedSecreKey` ([Yuki Kishimoto])
 
 ### Fixed
 

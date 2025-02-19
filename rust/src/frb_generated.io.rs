@@ -18,6 +18,7 @@ use crate::api::protocol::filter::*;
 use crate::api::protocol::key::public_key::*;
 use crate::api::protocol::key::secret_key::*;
 use crate::api::protocol::key::*;
+use crate::api::protocol::nips::nip49::*;
 use crate::api::protocol::nips::nip59::*;
 use crate::api::protocol::signer::*;
 use crate::api::relay::options::*;
@@ -83,6 +84,20 @@ pub extern "C" fn frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_fl
     ptr: *const std::ffi::c_void,
 ) {
     MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Connection>>::decrement_strong_count(ptr as _);
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_nostr_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>>::increment_strong_count(ptr as _);
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EncryptedSecretKey>>::decrement_strong_count(ptr as _);
 }
 
 #[no_mangle]

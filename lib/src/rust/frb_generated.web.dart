@@ -22,6 +22,7 @@ import 'api/protocol/filter.dart';
 import 'api/protocol/key.dart';
 import 'api/protocol/key/public_key.dart';
 import 'api/protocol/key/secret_key.dart';
+import 'api/protocol/nips/nip49.dart';
 import 'api/protocol/nips/nip59.dart';
 import 'api/protocol/signer.dart';
 import 'api/relay/options.dart';
@@ -51,6 +52,10 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ConnectionPtr =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_EncryptedSecretKeyPtr => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_EventPtr => wire
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event;
@@ -130,6 +135,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   Connection
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          dynamic raw);
+
+  @protected
+  EncryptedSecretKey
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
           dynamic raw);
 
   @protected
@@ -224,6 +234,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   Connection
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          dynamic raw);
+
+  @protected
+  EncryptedSecretKey
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
           dynamic raw);
 
   @protected
@@ -324,6 +339,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   Connection
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          dynamic raw);
+
+  @protected
+  EncryptedSecretKey
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
           dynamic raw);
 
   @protected
@@ -445,6 +465,14 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   ConnectionTarget dco_decode_connection_target(dynamic raw);
+
+  @protected
+  EncryptedSecretKeySecurity dco_decode_encrypted_secret_key_security(
+      dynamic raw);
+
+  @protected
+  EncryptedSecretKeyVersion dco_decode_encrypted_secret_key_version(
+      dynamic raw);
 
   @protected
   int dco_decode_i_32(dynamic raw);
@@ -576,6 +604,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  EncryptedSecretKey
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          SseDeserializer deserializer);
+
+  @protected
   Event
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           SseDeserializer deserializer);
@@ -667,6 +700,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   Connection
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          SseDeserializer deserializer);
+
+  @protected
+  EncryptedSecretKey
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
           SseDeserializer deserializer);
 
   @protected
@@ -768,6 +806,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   Connection
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          SseDeserializer deserializer);
+
+  @protected
+  EncryptedSecretKey
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
           SseDeserializer deserializer);
 
   @protected
@@ -892,6 +935,14 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   ConnectionTarget sse_decode_connection_target(SseDeserializer deserializer);
+
+  @protected
+  EncryptedSecretKeySecurity sse_decode_encrypted_secret_key_security(
+      SseDeserializer deserializer);
+
+  @protected
+  EncryptedSecretKeyVersion sse_decode_encrypted_secret_key_version(
+      SseDeserializer deserializer);
 
   @protected
   int sse_decode_i_32(SseDeserializer deserializer);
@@ -1029,6 +1080,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          EncryptedSecretKey self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           Event self, SseSerializer serializer);
 
@@ -1121,6 +1177,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void
       sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
           Connection self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          EncryptedSecretKey self, SseSerializer serializer);
 
   @protected
   void
@@ -1223,6 +1284,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
           Connection self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          EncryptedSecretKey self, SseSerializer serializer);
 
   @protected
   void
@@ -1349,6 +1415,14 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   void sse_encode_connection_target(
       ConnectionTarget self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_encrypted_secret_key_security(
+      EncryptedSecretKeySecurity self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_encrypted_secret_key_version(
+      EncryptedSecretKeyVersion self, SseSerializer serializer);
 
   @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
@@ -1513,6 +1587,18 @@ class NostrSdkWire implements BaseWire {
           int ptr) =>
       wasmModule
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+              ptr);
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          int ptr) =>
+      wasmModule
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+              ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          int ptr) =>
+      wasmModule
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
               ptr);
 
   void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
@@ -1732,6 +1818,14 @@ extension type NostrSdkWasmModule._(JSObject _) implements JSObject {
 
   external void
       rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          int ptr);
+
+  external void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
+          int ptr);
+
+  external void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EncryptedSecretKey(
           int ptr);
 
   external void
