@@ -52,13 +52,6 @@ impl _ClientOptions {
         builder
     }
 
-    /// Minimum POW difficulty for received events
-    pub fn min_pow(&self, difficulty: u8) -> Self {
-        let mut builder = self.clone();
-        builder.inner = builder.inner.min_pow(difficulty);
-        builder
-    }
-
     // pub fn req_filters_chunk_size(&self, req_filters_chunk_size: u8) -> Self {
     //     let mut builder = self.clone();
     //     builder.inner = builder.inner.req_filters_chunk_size(req_filters_chunk_size);

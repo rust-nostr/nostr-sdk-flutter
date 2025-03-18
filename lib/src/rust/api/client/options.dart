@@ -27,9 +27,6 @@ abstract class ClientOptions implements RustOpaqueInterface {
   /// Enable gossip model (default: false)
   ClientOptions gossip({required bool enabled});
 
-  /// Minimum POW difficulty for received events
-  ClientOptions minPow({required int difficulty});
-
   factory ClientOptions() =>
       NostrSdk.instance.api.crateApiClientOptionsClientOptionsNew();
 }
