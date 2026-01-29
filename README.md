@@ -1,5 +1,8 @@
 # Nostr SDK
 
+> **Maintenance notice:** This project is **not actively maintained**. 
+> If you’re interested in maintaining it, please open an issue.
+
 ## Description
 
 Nostr protocol implementation, Relay, RelayPool, high-level client library, NWC client and more.
